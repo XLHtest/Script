@@ -20,11 +20,6 @@ cp src/libsublime-imfix.so /opt/sublime_text/libsublime-imfix.so
 cp src/sublime-text.desktop /usr/share/applications/sublime_text.desktop
 cp src/subl /usr/bin/subl
 
-#下载安装搜狗输入法
-wget http://cdn2.ime.sogou.com/dl/index/1491565850/sogoupinyin_2.1.0.0086_amd64.deb
-dpkg -i sogoupinyin_2.1.0.0086_amd64.deb
-apt-get install -f -y
-
 #下载vscode
 wget https://az764295.vo.msecnd.net/stable/1e9d36539b0ae51ac09b9d4673ebea4e447e5353/code_1.17.1-1507645403_amd64.deb
 dpkg -i code_1.17.1-1507645403_amd64.deb
@@ -54,6 +49,10 @@ update-rc.d mysql enable
 apt-get clean && apt-get autoclean
 apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
 apt-get install broadcom-sta-dkms
+#下载安装搜狗输入法
+wget http://cdn2.ime.sogou.com/dl/index/1491565850/sogoupinyin_2.1.0.0086_amd64.deb
+dpkg -i sogoupinyin_2.1.0.0086_amd64.deb
+apt-get install -f -y
 #重启
 reboot
 init 0
