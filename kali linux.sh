@@ -16,9 +16,9 @@ apt-get install -f -y
 wget https://download.sublimetext.com/sublime-text_build-3143_amd64.deb
 dpkg -i sublime-text_build-3143_amd64.deb
 git clone https://github.com/XLHtest/sublime_text_3_Plugin.git /opt/sublime_text/Data/Packages/User
-cp /src/libsublime-imfix.so /opt/sublime_text/libsublime-imfix.so
-cp /src/sublime-text.desktop /usr/share/applications/sublime_text.desktop
-cp /src/subl /usr/bin/subl
+cp src/libsublime-imfix.so /opt/sublime_text/libsublime-imfix.so
+cp src/sublime-text.desktop /usr/share/applications/sublime_text.desktop
+cp src/subl /usr/bin/subl
 
 #下载安装搜狗输入法
 wget http://cdn2.ime.sogou.com/dl/index/1491565850/sogoupinyin_2.1.0.0086_amd64.deb
@@ -43,8 +43,6 @@ apt-get install -y build-essential
 echo 'export NODE_HOME=/usr/lib' >> /etc/profile
 echo 'export PATH=$PATH:$NODE_HOME' >> /etc/profile
 echo 'export NODE_PATH=$NODE_HOME/node_modules' >> /etc/profile
-#设置pip3.6
-alias "pip3.6"="python3.6 -m pip $1"
 #安装插件 npm
 npm install -g  cheerio crypto egg-init express ionic npm-check-updates pm2 superagent tslint typescript cordova egg-bin  eslint express-generator npm pg request supervisor ts-node typings
 #安装djanggo
@@ -58,3 +56,4 @@ apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
 apt-get install broadcom-sta-dkms
 #重启
 reboot
+init 0
