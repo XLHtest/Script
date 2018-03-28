@@ -1,17 +1,22 @@
 #!/bin/sh
 echo '设置更新源'
+
 #设置更新源
 echo 'deb http://http.kali.org/kali kali-rolling main contrib non-free' > /etc/apt/sources.list
 echo 'deb-src http://http.kali.org/kali kali-rolling main contrib non-free' >> /etc/apt/sources.list
+
 #进行更新
 apt-get clean && apt-get autoclean && apt-get remove -y && apt-get autoremove -y
 apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
+
 #安装基础依赖分别是 搜狗输入法  火狐浏览器汉化 sublime-text中文输入
-apt-get install -y fcitx fcitx-config-gtk2 iceweasel-l10n-zh-cn libgtk2.0-dev python3-pip virtualbox
+apt-get install -y fcitx fcitx-config-gtk2 iceweasel-l10n-zh-cn libgtk2.0-dev python3-pip virtualbox cmake
+
 #下载安装谷歌浏览器
 wget https://dl-ssl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 dpkg -i google-chrome-stable_current_amd64.deb
 apt-get install -f -y
+
 #下载sublime-text3    3143是版本号
 wget https://download.sublimetext.com/sublime-text_build-3143_amd64.deb
 dpkg -i sublime-text_build-3143_amd64.deb
@@ -38,21 +43,32 @@ apt-get install -y build-essential
 echo 'export NODE_HOME=/usr/lib' >> /etc/profile
 echo 'export PATH=$PATH:$NODE_HOME' >> /etc/profile
 echo 'export NODE_PATH=$NODE_HOME/node_modules' >> /etc/profile
+
 #安装插件 npm
-npm install -g  cheerio crypto egg-init express ionic npm-check-updates pm2 superagent tslint typescript cordova egg-bin  eslint express-generator npm pg request supervisor ts-node typings
-#安装djanggo
-pip3 install django djangorestframework coreapi Markdown django-filter django-crispy-forms django-guardian
+npm install -g  egg-init npm-check-updates pm2 tslint typescript egg-bin  eslint npm ts-node
+
 #启动數據庫
 update-rc.d postgresql enable
 update-rc.d mysql enable
+
 #再次更新
 apt-get clean && apt-get autoclean
 apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
 apt-get install broadcom-sta-dkms
+
 #下载安装搜狗输入法
 wget http://cdn2.ime.sogou.com/dl/index/1491565850/sogoupinyin_2.1.0.0086_amd64.deb
 dpkg -i sogoupinyin_2.1.0.0086_amd64.deb
 apt-get install -f -y
+
+#配置VIM
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+cp /src/vimrc ~/.vimrc
+vim +PluginInstall +qall
+cd ~/.vim/bundle/YouCompleteMe
+git submodule update --init --recursive
+./install.py --clang-completer
+
 #重启
 reboot
 init 0

@@ -1,0 +1,92 @@
+set nocompatible              " 去除VI一致性,必须
+filetype off                  " 必须
+
+" 设置包括vundle和初始化相关的runtime path
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'              " 管理插件
+Plugin 'luochen1990/rainbow'               " 彩虹括号
+Plugin 'Valloric/YouCompleteMe'            " 代码提示
+Plugin 'nvie/vim-flake8'                   " python语法检查
+Plugin 'itchyny/lightline.vim'             " 状态栏
+Plugin 'altercation/vim-colors-solarized'  " vim颜色配置
+Plugin 'scrooloose/nerdtree'               " 目录树
+call vundle#end()
+filetype plugin indent on    " 必须 加载vim自带和插件相应的语法和文件类型相关脚本
+
+set encoding=utf-8                   " 设置utf-8
+
+set backspace=indent,eol,start       " 允许在插入模式下退回所有内容
+
+set history=50                       " 保留50行命令行历史记录
+
+set ruler                            " 始终显示光标位置
+
+set showcmd                          " 显示不完整的命令
+
+set incsearch                        " 做增量搜索
+
+set nu                               " 显示行号
+
+set expandtab                        " 使用空格而不是制表符
+
+set tabstop=4                        " tab为4个空格
+
+set shiftwidth=4                     " 缩减为4个空格
+
+set hlsearch                         " 突出搜索条件
+
+set ic                               " 搜索忽略大小写
+
+set autoindent                       " 同一缩减级别开始新线
+
+syntax enable                        " 语法突出显示
+
+set cmdheight=1                      " 命令栏高度
+
+set showmatch                        " 当文本指示符位于它们上方时显示匹配的括号
+
+set nobackup                         " 不保留备份文件，这是70年代风格混乱
+
+set noswapfile                       " 不要写恼人的中间交换文件
+
+set ttimeoutlen=50                   " 解决：离开插入模式时会有一个暂停
+
+set splitbelow                       " 水平分割在当前文件下方打开
+
+set splitright                       " 垂直分割在当前文件的右侧打开
+
+set wildmode=longest,list            " 按下<Tab>显示类似于按<Tab>的命令建议
+
+set laststatus=2                     " 解决lightline不显示
+
+" 映射遍历缓冲区列表
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
+
+" 轻松扩展活动文件目录
+cnoremap  <expr>  %%   getcmdtype（）==  '：'？展开（'％：h '）。' / '：' %% '
+
+" 静音突出显示的快捷方式
+nnoremap  <silent>  <Cl>：<Cu> nohlsearch <CR> <Cl>
+
+" VIM内部文件的根权限
+cmap w!! w !sudo tee >/dev/null %
+
+" 使用Solarized黑暗主题
+syntax enable
+set background=dark
+let g:solarized_termcolors=256
+colorscheme solarized
+
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+
+let g:ycm_python_binary_path = '/usr/bin/python3' " 设置python3语法支持
+
+" 目录树
+map <C-n> :NERDTreeToggle<CR>
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
